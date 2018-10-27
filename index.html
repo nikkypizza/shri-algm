@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+  <meta charset=" UTF-8">
+  <title>ШРИкатон - 1</title>
+</head>
+
+<body>
+  <script>
+  const buildMatrix = (inputNumber) => {
+    let circularCounter = 1;
+    let matrixSideLength = inputNumber;
+
+    // Строим шаблон матрицы
+    const matrixMap = [];
+    for (let i = 0; i <= inputNumber - 1; i++) {
+      matrixMap.push([]);
+    };
+
+    // Заполняем каждую сторону
+    for (let i = 0; i < inputNumber; i++) {
+      // Верх
+      for (j = 0; j < matrixSideLength; j++) {
+        matrixMap[i][i + j] = circularCounter++;
+      }
+      // Правая сторона
+      for (j = 1; j < matrixSideLength; j++) {
+        matrixMap[i + j][inputNumber - 1 - i] = circularCounter++;
+      }
+      // Нижняя сторона
+      for (j = matrixSideLength - 2; j > -1; j--) {
+        matrixMap[inputNumber - 1 - i][i + j] = circularCounter++;
+      }
+      // Левая сторона
+      for (j = matrixSideLength - 2; j > 0; j--) {
+        matrixMap[i + j][i] = circularCounter++;
+      }
+
+      matrixSideLength -= 2;
+    };
+    return matrixMap;
+  };
+
+  console.log(`Вызов функции = console.table(buildMatrix(n))`);
+  </script>
+</body>
+
+</html>
