@@ -2,7 +2,7 @@
 <html lang="ru">
 
 <head>
-  <meta charset=" UTF-8">
+  <meta charset="UTF-8">
   <title>ШРИкатон - 1</title>
 </head>
 
@@ -42,7 +42,46 @@
     return matrixMap;
   };
 
-  console.log(`Вызов функции = console.table(buildMatrix(n))`);
+  const binarySearch = (arr, searchedNumber) => {
+    // Принимаем на вход только массивы с цифрами
+    if (arr.some((number) => typeof number === `string`)) {
+      throw new Error(`binarySearch() accepts only numbers`)
+    }
+
+    //Убедимся, что массив отсортирован
+    for (let i = 0; i < arr.length - 1; i++) {
+      if (arr[i] > arr[i + 1]) {
+        throw new Error(`arr is not sorted`)
+      }
+    }
+
+    const findNumberIndex = () => {
+      let arrStart = 0;
+      let arrEnd = arr.length - 1;
+
+      while (arrEnd >= arrStart) {
+        let arrCenter = Math.floor((arrStart + arrEnd) / 2);
+        let currentArrCenterNumber = arr[arrCenter];
+
+        if (currentArrCenterNumber === searchedNumber) {
+          return arrCenter;
+        } else if (currentArrCenterNumber > searchedNumber) {
+          arrEnd = arrCenter - 1;
+        } else {
+          arrStart = arrCenter + 1
+        }
+      }
+      return `not found in arr`;
+    }
+
+    return `Searched number ${searchedNumber} is at index ${findNumberIndex()}`;
+  }
+
+  console.log(`%c1) Построение спиральной матрицы = %cconsole.table(buildMatrix(n))`, `color: blue`, `color: green`, `
+- Возвращает матрицу с соотношением сторон n/n. Заполняет ее числами от 1 до n*n по часовой стрелке к середине матрицы`);
+
+  console.log(`%c2) Бинарный поиск = %cconsole.log(binarySearch(arr, searchedNumber))`, `color: blue`, `color: green`, `
+- Возвращает индекс искомого элемента, попутно проверяя, что массив отсортирован и не содержит строчных литералов`);
   </script>
 </body>
 
