@@ -45,7 +45,12 @@
   const binarySearch = (arr, searchedNumber) => {
     // Принимаем на вход только массивы с цифрами
     if (arr.some((number) => typeof number === `string`)) {
-      throw new Error(`binarySearch() accepts only numbers`)
+      throw new Error(`array can contain numbers only`)
+    }
+
+    //Убедимся, искомое значение = число
+    if (typeof searchedNumber !== `number`) {
+      throw new Error(`can search only for type 'number'`)
     }
 
     //Убедимся, что массив отсортирован
@@ -77,11 +82,40 @@
     return `Searched number ${searchedNumber} is at index ${findNumberIndex()}`;
   }
 
+  const bracketsStringStub = `{ ( [(  ) ] ) }`;
+  const checkPairingBrackets = (string) => {
+    const pairs = [`[]`, `{}`, `()`];
+    let bracketCounter = 0;
+
+    // Вырезаем пробелы из строки
+    let cleanString = string.replace(/\s/g, '');
+
+    // Если скобок нечетное количество - выходим
+    if (cleanString.length % 2 !== 0) {
+      return `Brackets do not match`;
+    }
+
+    while (cleanString) {
+      let currentPair = `${cleanString.slice(0,1)}${cleanString.slice(-1)}`;
+      if (pairs.includes(currentPair)) {
+        cleanString = cleanString.substring(1, cleanString.length - 1);
+        bracketCounter++;
+      } else {
+        return `Brackets do not match`;
+      }
+    }
+
+    return `Brackets match 👌. Total number of bracket pairs = ${bracketCounter}`;
+  }
+
   console.log(`%c1) Построение спиральной матрицы = %cconsole.table(buildMatrix(n))`, `color: blue`, `color: green`, `
 - Возвращает матрицу с соотношением сторон n/n. Заполняет ее числами от 1 до n*n по часовой стрелке к середине матрицы`);
 
-  console.log(`%c2) Бинарный поиск = %cconsole.log(binarySearch(arr, searchedNumber))`, `color: blue`, `color: green`, `
+  console.log(`%c2) Бинарный поиск = %cbinarySearch(arr, searchedNumber)`, `color: blue`, `color: green`, `
 - Возвращает индекс искомого элемента, попутно проверяя, что массив отсортирован и не содержит строчных литералов`);
+
+  console.log(`%c3) Проверка закрытости скобок в строке = %ccheckPairingBrackets(string)`, `color: blue`, `color: green`, `
+- Для проверки можно запустить передав аргументом bracketsStringStub == checkPairingBrackets(bracketsStringStub)`);
   </script>
 </body>
 
